@@ -3,44 +3,74 @@ using System.Collections.Generic;
 
 namespace TesteLojaAdriel
 {
-    class Program
+    class CadastroProduto
     {
-        static void Main(string[] args)
+        public static void CadastrarProduto()
         {
-            Console.WriteLine("Seja Muito bem vindo!!");
-            Console.WriteLine("O cliente já possui cadastro?");
-            string jaPossuiCadastro = Console.ReadLine();
+            var listaProdutos = new List<Produto>();
 
-            if(jaPossuiCadastro == "sim")
+            do
             {
-                //Vai para a seleção de produtos.
-                //Lista de produtos já cadastrados.
-            }
-            if(jaPossuiCadastro=="não")
-            {
-                //Faz o cadastro.
-                CadastroCliente.CadastroDeCliente();
-            }
-            else
-            {
-                //Reiniciar o app                
-                return;               
-            }
+                Produto produto = new Produto();
+                Console.WriteLine("Digite o tipo do produto: ");
+                produto.setTipoProduto(Console.ReadLine());
+                Console.WriteLine();
 
-            
-            //CadastroProduto.CadastroDeProdutos();
-        }        
+                Console.WriteLine($"Digite o nome do produto: ");
+                produto.setNomeProduto(Console.ReadLine());
+                Console.WriteLine();
+
+                Console.WriteLine($"Digite a marca do produto: ");
+                produto.setMarcaProduto(Console.ReadLine());
+                Console.WriteLine();
+
+                
+                
+                Console.WriteLine("Digite o valor do produto: ");
+                double valorReal;
+                string valor = Console.ReadLine();
+                valorReal = Convert.ToDouble(valor);         
+                produto.setValorProduto(valorReal);
+
+                listaProdutos.Add(produto);
+                
+                Console.WriteLine("Muito obrigado !! Pressione enter para fazer outro cadastro!");
+                Console.WriteLine("Para ver a lista com os dados cadastrados,digite '-l'");
+                Console.WriteLine("Para sair digite '-s'");
+
+                var repetir = Console.ReadLine();
+
+                if (repetir == "-s")
+                {
+                    break;
+                }
+                else if (repetir == "-l")
+                {
+                    Produto[] ListaArray = listaProdutos.ToArray();
+                    int codigoProduto = 0;
+
+                    Console.WriteLine("Lista de Produtos:");
+                    foreach (var lista in ListaArray)
+                    {                        
+                        Console.WriteLine($"Código do Cliente: {codigoProduto}");
+                        Console.WriteLine($"Tipo: {lista.getTipoProduto()}");
+                        Console.WriteLine($"Nome: {lista.getNomeProduto()}");
+                        Console.WriteLine($"Marca: {lista.getMarcaProduto()}");
+                        Console.WriteLine($"Preço: {lista.getValorProduto()}");
+                        Console.WriteLine();
+                        codigoProduto++;
+                    }
+                    break;
+                }
+            } while (true);
+
+
+            }
+        }
     }
-
-    //Cadastrar os produtos no programa.
-    //acessar as informações sem alterá-las.
-    //Fazer o resumo de compra do cliente
-    //Emitir um recibo.
-
-
-    abstract class CadastroCliente
+    class CadastroCliente
     {
-        public static void CadastroDeCliente()
+        public static void CadastrarCliente()
         {
             var listaClientes = new List<Cliente>();
 
@@ -51,29 +81,28 @@ namespace TesteLojaAdriel
                 Console.WriteLine("Digite o nome do cliente:");
 
                 Cliente cliente = new Cliente();
-                cliente.NomeCliente = Console.ReadLine();
-                Console.WriteLine();
 
+                cliente.setNomeCliente(Console.ReadLine());
+                Console.WriteLine();
+                
                 Console.WriteLine("Digite o CPF do cliente:");
-                cliente.CpfCliente = Console.ReadLine();
+                cliente.setCpfCliente(Console.ReadLine());
                 Console.WriteLine();
 
                 Console.WriteLine("Digite o endereço do cliente:");
-                cliente.EnderecoCliente = Console.ReadLine();
+                cliente.setEnderecoCliente(Console.ReadLine());
                 Console.WriteLine();
 
                 Console.WriteLine("Digite um telefone para contato:");
-                cliente.TelefoneCliente = Console.ReadLine();
+                cliente.setTelefoneCliente(Console.ReadLine());
                 Console.WriteLine();
-
 
                 listaClientes.Add(cliente);
 
-
-
                 Console.WriteLine("Muito obrigado !! Pressione enter para fazer outro cadastro!");
-                Console.WriteLine("Para vera lista de clientes digite '-l'");
+                Console.WriteLine("Para ver a lista com os dados cadastrados,digite '-l'");
                 Console.WriteLine("Para sair digite '-s'");
+
                 var repetir = Console.ReadLine();
 
                 if (repetir == "-s")
@@ -85,14 +114,14 @@ namespace TesteLojaAdriel
                     Cliente[] ListaArray = listaClientes.ToArray();
                     int codigoCliente = 0;
 
+                    Console.WriteLine("Lista de Clientes:");
                     foreach (var lista in ListaArray)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Lista de Clientes:");
+                    {                        
                         Console.WriteLine($"Código do Cliente: {codigoCliente}");
-                        Console.WriteLine($"Nome: {lista.NomeCliente}");
-                        Console.WriteLine($"CPF: {lista.CpfCliente}");
-                        Console.WriteLine($"Endereço: {lista.EnderecoCliente}");
+                        Console.WriteLine($"Nome: {lista.getNomeCliente()}");
+                        Console.WriteLine($"CPF: {lista.getCpfCliente()}");
+                        Console.WriteLine($"Endereço: {lista.getEnderecoCliente()}");
+                        Console.WriteLine($"Telefone: {lista.getTelefoneCliente()}");
                         Console.WriteLine();
                         codigoCliente++;
                     }
@@ -100,71 +129,30 @@ namespace TesteLojaAdriel
                 }
             } while (true);
 
-            //Console.WriteLine("Para sair, pressione enter...");
+            Console.WriteLine("Para encerrar, pressione enter...");
             Console.ReadLine();
-        }
-        
+        }         
     }
 
-    abstract class CadastroProduto
+    class Program
     {
-        public static void CadastroDeProdutos()
+        static void Main(string[] args)
         {
-            var listaProdutos = new List<Produto>();
+            Console.WriteLine("Seja Muito bem vindo!!");
+            Console.WriteLine("O que você deseja fazer? \n1-Cadastrar cliente. \n2-Cadastrar produtos.");
+            string jaPossuiCadastro = Console.ReadLine();
 
-            do
-            {            
-                Console.WriteLine("Digite o nome do produto:");
-
-                Produto produto = new Produto();
-                produto.GetNomeProduto = Console.ReadLine();
-                Console.WriteLine();
-
-                Console.WriteLine("Digite a marca do produto :");
-                produto.GetMarcaProduto = Console.ReadLine();
-                Console.WriteLine();
-
-                Console.WriteLine("Digite o tipo de produto:");
-                produto.GetTipoProduto = Console.ReadLine();
-                Console.WriteLine();
-
-                Console.WriteLine("Digite o valor do produto:");
-                produto.GetValorProduto = Console.ReadLine();
-                Console.WriteLine();            
-
-                //Transformar string para double ($)
-
-                listaProdutos.Add(produto);
-
-
-
-                Console.WriteLine("Pressione enter para fazer outro cadastro!");
-                Console.WriteLine("Para sair digite 'sair'");
-                var repetir = Console.ReadLine();
-
-                if (repetir == "sair")
-                {
-                    break;
-                }
-
-            } while (true);
-
-            Produto[] ListaArray = listaProdutos.ToArray();
-            int codigoProduto = 100;
-
-            foreach (var lista in ListaArray)
+            switch (jaPossuiCadastro)
             {
-                Console.WriteLine();
-                Console.WriteLine("Lista de Produtos:");
-                Console.WriteLine($"Código do Produto: {codigoProduto}");
-                Console.WriteLine($"Nome: {lista.GetNomeProduto}");
-                Console.WriteLine($"CPF: {lista.GetMarcaProduto}");
-                Console.WriteLine($"Endereço: {lista.GetTipoProduto}");
-                Console.WriteLine($"Valor: {lista.GetValorProduto}");
-                Console.WriteLine();
-                codigoProduto++;
-            }
-                Console.ReadLine();
-        }
-    }
+                case "1":
+                    CadastroCliente.CadastrarCliente();
+                    break;
+                case "2":
+                    //Cadastrar produto
+                    break;
+                default:
+                    return;
+            }            
+        }        
+    }   
 }
