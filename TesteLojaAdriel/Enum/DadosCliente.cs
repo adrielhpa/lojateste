@@ -6,6 +6,7 @@ namespace TesteLojaAdriel
         Cpf = 2,
         Rg = 3,
         Endereco = 4,
-        Cep = 5
+        Cep = 5,
+        DataNascimento = 6
     }
 }
